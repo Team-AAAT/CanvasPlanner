@@ -1,0 +1,15 @@
+{
+  "name": "student-planer",
+  "version": "1.0.0",
+  "description": "Planner application for integrating with canvas courses.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^22.0.0",
+    "electron-fetch": "^1.9.1"
+  }
+}
