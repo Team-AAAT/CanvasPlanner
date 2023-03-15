@@ -1,3 +1,5 @@
 /src/main/frontend/node_modules/
 /.idea/
 /out/
+/src/main/resources/node_modules/
+/target/

@@ -1,14 +1,36 @@
 package models;
 
+import io.jsondb.annotation.Document;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.jsondb.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Document(collection = "events", schemaVersion = "1.0")
 public class Event {
+
+    @Id
     private int ID;
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
     private String description;
+
+    @JsonCreator
+    public Event(@JsonProperty("ID") int ID,
+                 @JsonProperty("name") String name,
+                 @JsonProperty("description") String description,
+                 @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
+                 @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes) {
+        this.ID = ID;
+        this.name = name;
+        this.description = description;
+        this.stringAttributes = stringAttributes;
+        this.intAttributes = intAttributes;
+    }
 
     public Event(int ID, String name, String description) {
         this.ID = ID;
