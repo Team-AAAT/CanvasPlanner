@@ -1,18 +1,16 @@
 package models;
 
-import org.w3c.dom.Attr;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Calendar {
+public class Event {
     private int ID;
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
     private String description;
 
-    public Calendar(int ID, String name, String description) {
+    public Event(int ID, String name, String description) {
         this.ID = ID;
         this.name = name;
         this.description = description;

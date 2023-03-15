@@ -4,7 +4,7 @@
   "description": "Planner application for integrating with canvas courses.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "node_modules/.bin/electron ."
   },
   "author": "",
   "license": "ISC",
