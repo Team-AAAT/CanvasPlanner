@@ -17,6 +17,7 @@ public class Event {
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
+    private List<DateAttribute> dateAttributes;
     private String description;
 
     @JsonCreator
@@ -24,20 +25,25 @@ public class Event {
                  @JsonProperty("name") String name,
                  @JsonProperty("description") String description,
                  @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
-                 @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes) {
+                 @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes,
+                 @JsonProperty("dateAttributes") List<DateAttribute> dateAttributes) {
         this.ID = ID;
         this.name = name;
         this.description = description;
         this.stringAttributes = stringAttributes;
         this.intAttributes = intAttributes;
+        this.dateAttributes = dateAttributes;
     }
 
-    public Event(int ID, String name, String description) {
+    public Event(int ID, String name, String description, DateAttribute dateAttribute) {
         this.ID = ID;
         this.name = name;
         this.description = description;
         this.stringAttributes = new ArrayList<>();
         this.intAttributes = new ArrayList<>();
+
+        this.dateAttributes = new ArrayList<>();
+        this.dateAttributes.add(dateAttribute);
     }
 
     public int getID() {
@@ -78,6 +84,18 @@ public class Event {
 
     public void addIntAttribute(Attribute<Integer> attribute){
         this.intAttributes.add(attribute);
+    }
+
+    public List<DateAttribute> getDateAttributes() {
+        return dateAttributes;
+    }
+
+    public void setDateAttributes(List<DateAttribute> dateAttributes) {
+        this.dateAttributes = dateAttributes;
+    }
+
+    public void addDateAttribute(DateAttribute attribute){
+        this.dateAttributes.add(attribute);
     }
 
     public String getDescription() {
