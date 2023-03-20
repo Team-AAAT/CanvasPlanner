@@ -1,15 +1,23 @@
 {
-  "name": "student-planer",
+  "name": "studentplanner",
   "version": "1.0.0",
-  "description": "Planner application for integrating with canvas courses.",
+  "description": "a calander/planner application for students",
   "main": "main.js",
   "scripts": {
-    "start": "node_modules/.bin/electron ."
+    "start": "electron ."
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-AAAT/CanvasPlanner.git"
+  },
   "dependencies": {
     "electron": "^22.0.0",
     "electron-fetch": "^1.9.1"
-  }
+  },
+  "author": "Charlie Watson, Auston Besong, Austin Jalosinski, Tom Cronin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-AAAT/CanvasPlanner/issues"
+  },
+  "homepage": "https://github.com/Team-AAAT/CanvasPlanner#readme"
 }

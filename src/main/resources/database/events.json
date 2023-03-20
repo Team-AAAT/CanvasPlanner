@@ -1,2 +1,2 @@
 {"schemaVersion":"1.0"}
-{"name":"test","description":"this is a temp calendar event","stringAttributes":[],"intAttributes":[],"id":1}
+{"name":"test","description":"this is a temp calendar event","stringAttributes":[],"intAttributes":[{"name":"students","value":123,"type":"java.lang.Integer","id":1}],"dateAttributes":[{"name":"Date","type":"java.lang.String","startDateTime":[2023,3,20,14,24,46,899464700],"endDateTime":[2023,3,20,14,24,46,900464600],"value":"test","id":1}],"id":1}

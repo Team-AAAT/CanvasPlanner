@@ -1,12 +1,23 @@
 package models;
 
+import io.jsondb.annotation.Document;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.jsondb.annotation.Id;
+
+@Document(collection = "events", schemaVersion = "1.0")
 public class Attribute<T> {
+    @Id
     private int ID;
     private String name;
     private T value;
     private Class<T> type;
 
-    public Attribute(int ID, String name, T value, Class<T> type) {
+    @JsonCreator
+    public Attribute(@JsonProperty("ID") int ID,
+                     @JsonProperty("name") String name,
+                     @JsonProperty("value") T value,
+                     @JsonProperty("type") Class<T> type) {
         this.ID = ID;
         this.name = name;
         this.value = value;
