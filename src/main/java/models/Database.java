@@ -6,12 +6,14 @@ import java.io.File;
 public class Database {
     private static final String DB_FILES_LOCATION = "src/main/resources/database";
     private static final String DB_NAME = "models";
-    private JsonDBTemplate jsonDBTemplate;
+    private final JsonDBTemplate jsonDBTemplate;
 
     public Database() {
         String dbFolder = new File(DB_FILES_LOCATION).getAbsolutePath();
         jsonDBTemplate = new JsonDBTemplate(dbFolder, DB_NAME);
-        jsonDBTemplate.createCollection(Event.class);
+        if (!jsonDBTemplate.collectionExists(Event.class)) {
+            jsonDBTemplate.createCollection(Event.class);
+        }
     }
 
     public void addEvent(Event event) {
