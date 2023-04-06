@@ -14,7 +14,7 @@ public class Controller {
         Database database = new Database(); // creates a new database object
 
         // starts the backend on port 5000, can be whatever we want in the end.
-        Javalin app = Javalin.create().start(5000);
+        Javalin app = Javalin.create().start(50000);
 
         app.post("/makeCalendarEvent", ctx ->{ // this is the endpoint for the frontend to send the data to
 
