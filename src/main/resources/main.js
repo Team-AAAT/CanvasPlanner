@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer, dialog} = require("electron")
 const electron = require("electron")
 var mainWindow
+const electronReload = require('electron-reload');
+electronReload(__dirname);
 
 function createWindow() {
     const display = electron.screen.getPrimaryDisplay()
@@ -12,6 +14,8 @@ function createWindow() {
         height: height})
     mainWindow.setAlwaysOnTop(false)
     mainWindow.loadFile('views/index.html')
+    mainWindow.setMenuBarVisibility(false)
+    mainWindow.setAutoHideMenuBar(true)
 }
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow( {
