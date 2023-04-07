@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <link rel="stylesheet" href="../styles/index.css">
-      <script src="../scripts/index.js" defer></script>
-  </head>
-  <body>
-      <label>Home!</label>
-      <button onclick="view2();">Go to view 2</button>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../styles/index.css">
+    <script src="../scripts/index.js" defer></script>
+</head>
+<body class="base">
+
+    <div class="menuBarContainer">
+        <div class = "leftContainer">
+            <div class="searchBox">
+                <input class="searchText" type="text" placeholder="Search" />
+                <img class="searchButton" src="../sources/search.png" alt="Button">
+            </div>
+            <div class = "dateTextDiv">
+                <label class="dateText">March 24th, 2023</label>
+            </div>
+        </div>
+
+        <div class = "rightContainer">
+            <div class = "calendarViewButtonDiv">
+                <button class="calendarViewButton">Week</button>
+                <button class="calendarViewButton">Month</button>
+                <button class="calendarViewButton">Year</button>
+            </div>
+            <img class="shareButton" src="../sources/share-button.png" alt="Button">
+        </div>
+    </div>
+
+
+<!--<label>Home!</label>-->
+<!--<button onclick="view2();">Go to view 2</button>-->
+</body>
 </html>

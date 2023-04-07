@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "electron": "^22.0.0",
-    "electron-fetch": "^1.9.1"
+    "electron-fetch": "^1.9.1",
+    "electron-reload": "^2.0.0-alpha.1"
   },
   "author": "Charlie Watson, Auston Besong, Austin Jalosinski, Tom Cronin",
   "license": "ISC",

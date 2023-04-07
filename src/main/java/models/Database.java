@@ -8,6 +8,7 @@ public class Database {
     private static final String DB_NAME = "models";
     private final JsonDBTemplate jsonDBTemplate;
 
+    //todo: fix to all of the case of an already existing database file
     public Database() {
         String dbFolder = new File(DB_FILES_LOCATION).getAbsolutePath();
         jsonDBTemplate = new JsonDBTemplate(dbFolder, DB_NAME);
