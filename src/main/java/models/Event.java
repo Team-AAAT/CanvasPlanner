@@ -13,7 +13,7 @@ import java.util.List;
 public class Event {
 
     @Id
-    private int ID;
+    private String ID;
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
@@ -21,7 +21,7 @@ public class Event {
     private String description;
 
     @JsonCreator
-    public Event(@JsonProperty("ID") int ID,
+    public Event(@JsonProperty("ID") String ID,
                  @JsonProperty("name") String name,
                  @JsonProperty("description") String description,
                  @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
@@ -35,8 +35,7 @@ public class Event {
         this.dateAttributes = dateAttributes;
     }
 
-    public Event(int ID, String name, String description, DateAttribute dateAttribute) {
-        this.ID = ID;
+    public Event(String name, String description, DateAttribute dateAttribute) {
         this.name = name;
         this.description = description;
         this.stringAttributes = new ArrayList<>();
@@ -46,11 +45,11 @@ public class Event {
         this.dateAttributes.add(dateAttribute);
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -108,7 +107,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Calendar{" +
+        return "Event{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
                 ", stringAttributes=" + stringAttributes +

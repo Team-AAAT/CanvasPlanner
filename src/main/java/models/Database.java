@@ -1,6 +1,8 @@
 package models;
 
 import io.jsondb.JsonDBTemplate;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 public class Database {
@@ -15,15 +17,43 @@ public class Database {
         if (!jsonDBTemplate.collectionExists(Event.class)) {
             jsonDBTemplate.createCollection(Event.class);
         }
+        if (!jsonDBTemplate.collectionExists(EventList.class)) {
+            jsonDBTemplate.createCollection(EventList.class);
+        }
+        if (!jsonDBTemplate.collectionExists(Attribute.class)) {
+            jsonDBTemplate.createCollection(Attribute.class);
+        }
     }
 
-    public void addEvent(Event event) {
+    public void addStringAttribute(@NotNull Attribute<String> attribute) {
+        if (jsonDBTemplate.findOne(
+                String.format("/.[name='%s']", attribute.getName()),
+                Attribute.class) == null) {
+            jsonDBTemplate.insert(attribute);
+        }
+    }
+
+    public void addIntegerAttribute(Attribute<Integer> attribute) {
+        if (jsonDBTemplate.findOne(
+                String.format("/.[name='%s']", attribute.getName()),
+                Attribute.class) == null) {
+            jsonDBTemplate.insert(attribute);
+        }
+    }
+
+    public void addEventList(@NotNull EventList eventList) {
+        jsonDBTemplate.insert(eventList);
+    }
+
+    public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
     }
 
-    public Event getEventByID(int id) {
+    public Event getEventByName(String name) {
         return jsonDBTemplate.findOne(
-                String.format("/.[ID='%s']", id),
+                String.format("/.[name='%s']", name),
                 Event.class);
     }
+
+
 }
