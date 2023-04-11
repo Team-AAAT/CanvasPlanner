@@ -4,17 +4,19 @@ import io.jsondb.annotation.Document;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jsondb.annotation.Id;
+//import io.jsondb.annotation.*;
 
-@Document(collection = "events", schemaVersion = "1.0")
+@Document(collection = "Attributes", schemaVersion = "1.0")
 public class Attribute<T> {
+
     @Id
-    private int ID;
+    private String ID;
     private String name;
     private T value;
     private Class<T> type;
 
     @JsonCreator
-    public Attribute(@JsonProperty("ID") int ID,
+    public Attribute(@JsonProperty("ID") String ID,
                      @JsonProperty("name") String name,
                      @JsonProperty("value") T value,
                      @JsonProperty("type") Class<T> type) {
@@ -24,11 +26,17 @@ public class Attribute<T> {
         this.type = type;
     }
 
-    public int getID() {
+    public Attribute(String name, T value, Class<T> type) {
+        this.name = name;
+        this.value = value;
+        this.type = type;
+    }
+
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -54,5 +62,9 @@ public class Attribute<T> {
 
     public void setType(Class<T> type) {
         this.type = type;
+    }
+
+    public Attribute<T> cloneBlankAttribute() {
+        return new Attribute<>(this.name, null, this.type);
     }
 }

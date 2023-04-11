@@ -1,6 +1,8 @@
 package models;
 
 import io.jsondb.JsonDBTemplate;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 
 public class Database {
@@ -15,9 +17,31 @@ public class Database {
         if (!jsonDBTemplate.collectionExists(Event.class)) {
             jsonDBTemplate.createCollection(Event.class);
         }
+        if (!jsonDBTemplate.collectionExists(EventList.class)) {
+            jsonDBTemplate.createCollection(EventList.class);
+        }
+        if (!jsonDBTemplate.collectionExists(Attribute.class)) {
+            jsonDBTemplate.createCollection(Attribute.class);
+        }
     }
 
-    public void addEvent(Event event) {
+    public void addStringAttribute(@NotNull Attribute<String> attribute) {
+        if (jsonDBTemplate.findOne(
+                String.format("/.[name='%s']", attribute.getName()),
+                Attribute.class) == null) {
+            jsonDBTemplate.insert(attribute);
+        }
+    }
+
+    public void addIntegerAttribute(Attribute<Integer> attribute) {
+        if (jsonDBTemplate.findOne(
+                String.format("/.[name='%s']", attribute.getName()),
+                Attribute.class) == null) {
+            jsonDBTemplate.insert(attribute);
+        }
+    }
+
+    public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
     }
 
@@ -26,4 +50,6 @@ public class Database {
                 String.format("/.[ID='%s']", id),
                 Event.class);
     }
+
+
 }
