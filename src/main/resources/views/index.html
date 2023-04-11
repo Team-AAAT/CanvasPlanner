@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../styles/index.css">
-    <script src="../scripts/index.js" defer></script>
+    <link rel="stylesheet" href="../styles/menuBar.css">
     <link rel="stylesheet" href="../styles/monthView.css">
+    <link rel="stylesheet" href="../styles/itemView.css">
+    <script src="../scripts/index.js" defer></script>
+
 </head>
 <body class="base">
 
@@ -29,10 +32,31 @@
         </div>
     </div>
 
-
-
     <div class="mainContainer">
         <div class="selectedItemContainer">
+            <div class="selectedItemTitleContainer">
+                <label class="selectedItemTitle">Title</label>
+            </div>
+            <div class="selectedItemFixedAttributeContainer">
+                <Label class = "selectedItemText" style="grid-row: 1; grid-column: 1;">Start Date</Label>
+                <Label class = "selectedItemText" style="grid-row: 1; grid-column: 2;">...</Label>
+                <Label class = "selectedItemText" style="grid-row: 2; grid-column: 1;">End Date</Label>
+                <Label class = "selectedItemText" style="grid-row: 2; grid-column: 2;">...</Label>
+            </div>
+            <div class="selectedItemAttributeContainer">
+                <div class="selectedItemAttributeGrid">
+                    <input class="selectedItemAttributeField">
+                    <input class="selectedItemAttributeText">
+                    <input class="selectedItemAttributeField">
+                    <input class="selectedItemAttributeText">
+                </div>
+                <button class="selectedItemAttributeButton">+ New Attribute</button>
+            </div>
+
+            <div>
+                <input class="selectedItemDescription">
+            </div>
+
         </div>
         <div class="monthViewContainer">
             <div class="monthRowContainer">
