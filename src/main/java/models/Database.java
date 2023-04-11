@@ -41,13 +41,17 @@ public class Database {
         }
     }
 
+    public void addEventList(@NotNull EventList eventList) {
+        jsonDBTemplate.insert(eventList);
+    }
+
     public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
     }
 
-    public Event getEventByID(int id) {
+    public Event getEventByName(String name) {
         return jsonDBTemplate.findOne(
-                String.format("/.[ID='%s']", id),
+                String.format("/.[name='%s']", name),
                 Event.class);
     }
 

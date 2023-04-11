@@ -24,6 +24,11 @@ public class EventList {
         this.events = events;
     }
 
+    public EventList(LocalDate date) {
+        this.Date = date;
+        this.events = new LinkedList<>();
+    }
+
     public int getID() {
         return ID;
     }
