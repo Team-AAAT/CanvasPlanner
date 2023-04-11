@@ -8,12 +8,10 @@
 }
 
 .box{
-    /*width: 10.7vw;*/
     height:18.4vh;
     background: #1F1F1F;
     border: 3px solid #2B2B2B;
     box-sizing: border-box;
-    /*display: flex;*/
 }
 .box-content{
     display: grid;
@@ -33,8 +31,3 @@
     color: #FFFFFF;
 }
 
-.test{
-    background-color: #f00;
-    width: 100%;
-    grid-column: 1 / span 2;
-}

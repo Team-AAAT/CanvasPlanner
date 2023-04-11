@@ -1,0 +1,5 @@
+.event{
+    background-color: #f00;
+    width: 100%;
+    grid-column: 1 / span 2;
+}
