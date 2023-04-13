@@ -1,21 +1,20 @@
-.yearViewContainer
+.weekViewContainer
 {
     width: 75vw;
     height: 92vh;
     display: grid;
-    grid-template-rows: repeat(4, auto);
-    grid-template-columns: repeat(auto-fit, minmax(calc(75vw / 3), 1fr));
-    display: none;
+    grid-template-rows: repeat(1, auto);
+    grid-template-columns: repeat(auto-fit, minmax(calc(75vw / 7), 1fr));
 }
 
-.yearViewContainer .box{
-    height:23vh;
+.weekViewContainer .box{
+    height:92vh;
     background: #1F1F1F;
     border: 3px solid #2B2B2B;
     box-sizing: border-box;
     text-align: center;
 }
-.yearViewContainer .box-content{
+.weekViewContainer .box-content{
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
@@ -23,7 +22,7 @@
     width: 100%;
 }
 
-.yearViewContainer .monthName{
+.weekViewContainer .monthName{
     font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 400;
