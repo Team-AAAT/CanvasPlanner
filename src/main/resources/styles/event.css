@@ -3,3 +3,9 @@
     width: 100%;
     grid-column: 1 / span 2;
 }
+
+.eventCompleted{
+    background-color: rgb(138, 138, 138);
+    width: 100%;
+    grid-column: 1 / span 2;
+}
