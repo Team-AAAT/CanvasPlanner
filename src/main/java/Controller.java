@@ -5,10 +5,13 @@ import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Controller {
     public static void main(String[] args) throws GeneralSecurityException {
@@ -16,7 +19,6 @@ public class Controller {
         Database database = new Database(); // creates a new database object
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
 
         // starts the backend on port 5000, can be whatever we want in the end.
         Javalin app = Javalin.create().start(50000);
@@ -30,15 +32,22 @@ public class Controller {
                 event.setID(UUID.randomUUID().toString());
                 database.addEvent(event);
 
-                EventList eventList = database.getEventListByDate(startDateTime.toLocalDate());
-                if (eventList == null) {
-                    eventList = new EventList(UUID.randomUUID().toString(), startDateTime.toLocalDate());
-                    eventList.addEvent(event.getID());
-                    database.addEventList(eventList);
-                }
-                else {
-                    eventList.addEvent(event.getID());
-                    database.updateEventList(eventList);
+
+                List<LocalDateTime> dates = Stream.iterate(startDateTime, date -> date.plusDays(1))
+                        .limit(ChronoUnit.DAYS.between(startDateTime, endDateTime.plusDays(1)))
+                        .toList();
+
+                for(LocalDateTime date : dates){
+                    EventList eventList = database.getEventListByDate(date.toLocalDate());
+                    if (eventList == null) {
+                        eventList = new EventList(UUID.randomUUID().toString(), date.toLocalDate());
+                        eventList.addEvent(event.getID());
+                        database.addEventList(eventList);
+                    }
+                    else {
+                        eventList.addEvent(event.getID());
+                        database.updateEventList(eventList);
+                    }
                 }
 
                 ctx.result("{\"status\": \"success\"}");
@@ -58,6 +67,8 @@ public class Controller {
             }
         });
 
+        //updateEvent
+
         app.get("/getDayEvents", ctx -> {
             try{
                 EventList eventList = database.getEventListByDate(LocalDate.parse(Objects.requireNonNull(ctx.queryParam("date")), formatter));
@@ -74,6 +85,16 @@ public class Controller {
                 ctx.result("{\"status\": \"failure\"}");
             }
         });
+
+        //updateListOrder
+
+        //monthPriority
+
+        //nameLookup
+
+
+
+
 
 //        app.post("/makeCalendarEvent", ctx ->{ // this is the endpoint for the frontend to send the data to
 //

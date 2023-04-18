@@ -17,15 +17,15 @@ public class EventList {
 
     @JsonCreator
     public EventList(@JsonProperty("ID") String ID,
-                     @JsonProperty("date") LocalDate date,
-                     @JsonProperty("events") LinkedList<String> events) {
+                     @JsonProperty("Date") LocalDate date,
+                     @JsonProperty("eventIdList") LinkedList<String> events) {
         this.ID = ID;
         this.Date = date;
         this.eventIdList = events;
     }
 
     public EventList(String ID, LocalDate date) {
-
+        this.ID = ID;
         this.Date = date;
         this.eventIdList = new LinkedList<>();
     }

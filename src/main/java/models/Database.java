@@ -47,6 +47,11 @@ public class Database {
         jsonDBTemplate.insert(eventList);
     }
 
+//    public void saveEventList(@NotNull EventList eventList) {
+//        jsonDBTemplate.save(eventList, EventList.class);
+//    }
+
+
     public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
     }
