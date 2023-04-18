@@ -11,29 +11,30 @@ import java.util.LinkedList;
 @Document(collection = "eventLists", schemaVersion = "1.0")
 public class EventList {
     @Id
-    private int ID;
+    private String ID;
     private LocalDate Date;
-    private LinkedList<Event> events;
+    private LinkedList<String> eventIdList;
 
     @JsonCreator
-    public EventList(@JsonProperty("ID") int ID,
+    public EventList(@JsonProperty("ID") String ID,
                      @JsonProperty("date") LocalDate date,
-                     @JsonProperty("events") LinkedList<Event> events) {
+                     @JsonProperty("events") LinkedList<String> events) {
         this.ID = ID;
         this.Date = date;
-        this.events = events;
+        this.eventIdList = events;
     }
 
-    public EventList(LocalDate date) {
+    public EventList(String ID, LocalDate date) {
+
         this.Date = date;
-        this.events = new LinkedList<>();
+        this.eventIdList = new LinkedList<>();
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -45,26 +46,26 @@ public class EventList {
         Date = date;
     }
 
-    public LinkedList<Event> getEvents() {
-        return events;
+    public LinkedList<String> getEventIdList() {
+        return eventIdList;
     }
 
-    public void setEvents(LinkedList<Event> events) {
-        this.events = events;
+    public void setEventIdList(LinkedList<String> eventIdList) {
+        this.eventIdList = eventIdList;
     }
 
     //add event at specific index
-    public void addEvent(int index, Event event) {
-        this.events.add(index, event);
+    public void addEvent(int index, String event) {
+        this.eventIdList.add(index, event);
     }
 
     //add event at end of list
-    public void addEvent(Event event) {
-        this.events.add(event);
+    public void addEvent(String event) {
+        this.eventIdList.add(event);
     }
 
     //remove event
-    public void removeEvent(Event event) {
-        this.events.remove(event);
+    public void removeEvent(String event) {
+        this.eventIdList.remove(event);
     }
 }

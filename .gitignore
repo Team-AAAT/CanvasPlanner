@@ -3,3 +3,9 @@
 /out/
 /src/main/resources/node_modules/
 /target/
+/src/main/resources/database/lock/Attributes.json.lock
+/src/main/resources/database/lock/eventLists.json.lock
+/src/main/resources/database/lock/events.json.lock
+/src/main/resources/database/Attributes.json
+/src/main/resources/database/eventLists.json
+/src/main/resources/database/events.json
