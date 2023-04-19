@@ -29,6 +29,7 @@ public class Controller {
 
                 Event event = new Event(ctx.queryParam("name"), ctx.queryParam("description"), new DateAttribute(ctx.queryParam("name"), ctx.queryParam("description"), String.class, startDateTime, endDateTime));
                 event.setID(UUID.randomUUID().toString());
+                event.setCompletionStatus(false);
                 database.addEvent(event);
 
 
@@ -128,6 +129,7 @@ public class Controller {
                 newEvent.setID(oldEvent.getID());
                 newEvent.setStringAttributes(stringAttributes);
                 newEvent.setIntAttributes(integerAttributes);
+                newEvent.setCompletionStatus(Boolean.valueOf(ctx.queryParam("completionStatus")));
 
                 List<LocalDateTime> dates = Stream.iterate(oldEvent.getDateAttributes().getStartDateTime(), date -> date.plusDays(1))
                         .limit(ChronoUnit.DAYS.between(oldEvent.getDateAttributes().getStartDateTime(), oldEvent.getDateAttributes().getEndDateTime().plusDays(1)))
@@ -227,7 +229,10 @@ public class Controller {
                     EventList eventList = database.getEventListByDate(localDate);
                     if (eventList != null) {
                         for (String eventID : eventList.getEventIdList()) {
-                            events.add(database.getEventByID(eventID));
+                            Event event = database.getEventByID(eventID);
+                            if (null != event && !event.getCompletionStatus()){
+                                events.add(event);
+                            }
                         }
                     }
                 }
