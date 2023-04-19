@@ -4,6 +4,8 @@ import io.jsondb.annotation.Document;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.jsondb.annotation.Id;
+
+import java.util.Objects;
 //import io.jsondb.annotation.*;
 
 @Document(collection = "Attributes", schemaVersion = "1.0")
@@ -66,5 +68,18 @@ public class Attribute<T> {
 
     public Attribute<T> cloneBlankAttribute() {
         return new Attribute<>(this.name, null, this.type);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Attribute<?> attribute = (Attribute<?>) o;
+        return name.equals(attribute.name) && Objects.equals(value, attribute.value) && Objects.equals(type, attribute.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, name, value, type);
     }
 }

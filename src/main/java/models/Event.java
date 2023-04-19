@@ -7,6 +7,7 @@ import io.jsondb.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Document(collection = "events", schemaVersion = "1.0")
@@ -109,5 +110,18 @@ public class Event {
                 ", intAttributes=" + intAttributes +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return ID.equals(event.ID) && name.equals(event.name) && Objects.equals(stringAttributes, event.stringAttributes) && Objects.equals(intAttributes, event.intAttributes) && dateAttributes.equals(event.dateAttributes) && Objects.equals(description, event.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, name, stringAttributes, intAttributes, dateAttributes, description);
     }
 }
