@@ -1,9 +1,11 @@
 package models;
 
 import io.jsondb.JsonDBTemplate;
+import io.jsondb.query.Update;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.time.LocalDate;
 
 public class Database {
     private static final String DB_FILES_LOCATION = "src/main/resources/database";
@@ -45,14 +47,38 @@ public class Database {
         jsonDBTemplate.insert(eventList);
     }
 
+
     public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
+    }
+
+    public void updateEvent(Event event) {
+//        Update update = Update.update("name", event.getName());
+//        String jxQuery = String.format("/.[ID='%s']", event.getID());
+//        jsonDBTemplate.findAndModify(jxQuery, update, Event.class);
+        jsonDBTemplate.upsert(event);
     }
 
     public Event getEventByName(String name) {
         return jsonDBTemplate.findOne(
                 String.format("/.[name='%s']", name),
                 Event.class);
+    }
+
+    public Event getEventByID(String id) {
+        return jsonDBTemplate.findById(id, Event.class);
+    }
+
+    public EventList getEventListByDate(LocalDate date) {
+        return jsonDBTemplate.findOne(
+                String.format("/.[date='%s']", date.toString()),
+                EventList.class);
+    }
+
+    public void updateEventList(EventList eventList) {
+        Update update = Update.update("eventIdList", eventList.getEventIdList());
+        String jxQuery = String.format("/.[date='%s']", eventList.getDate().toString());
+        jsonDBTemplate.findAndModify(jxQuery, update, EventList.class);
     }
 
 

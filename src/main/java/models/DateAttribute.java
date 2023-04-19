@@ -6,6 +6,7 @@ import io.jsondb.annotation.Document;
 
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Document(collection = "Attributes", schemaVersion = "1.0")
@@ -46,5 +47,19 @@ public DateAttribute(String name, String description, Class<String> type, LocalD
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        DateAttribute that = (DateAttribute) o;
+        return Objects.equals(startDateTime, that.startDateTime) && Objects.equals(endDateTime, that.endDateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), startDateTime, endDateTime);
     }
 }

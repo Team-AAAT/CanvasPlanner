@@ -7,6 +7,7 @@ import io.jsondb.annotation.Id;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Document(collection = "events", schemaVersion = "1.0")
@@ -17,7 +18,7 @@ public class Event {
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
-    private List<DateAttribute> dateAttributes;
+    private DateAttribute dateAttributes;
     private String description;
     private Boolean completionStatus;
 
@@ -27,7 +28,7 @@ public class Event {
                  @JsonProperty("description") String description,
                  @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
                  @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes,
-                 @JsonProperty("dateAttributes") List<DateAttribute> dateAttributes, 
+                 @JsonProperty("dateAttributes") DateAttribute dateAttributes,
                  @JsonProperty("completionStatus") Boolean completionStatus) {
         this.ID = ID;
         this.name = name;
@@ -35,7 +36,6 @@ public class Event {
         this.stringAttributes = stringAttributes;
         this.intAttributes = intAttributes;
         this.dateAttributes = dateAttributes;
-        this.completionStatus = completionStatus;
     }
 
     public Event(String name, String description, DateAttribute dateAttribute) {
@@ -44,8 +44,7 @@ public class Event {
         this.stringAttributes = new ArrayList<>();
         this.intAttributes = new ArrayList<>();
 
-        this.dateAttributes = new ArrayList<>();
-        this.dateAttributes.add(dateAttribute);
+        this.dateAttributes = dateAttribute;
 
         this.completionStatus = false;
     }
@@ -90,16 +89,12 @@ public class Event {
         this.intAttributes.add(attribute);
     }
 
-    public List<DateAttribute> getDateAttributes() {
+    public DateAttribute getDateAttributes() {
         return dateAttributes;
     }
 
-    public void setDateAttributes(List<DateAttribute> dateAttributes) {
+    public void setDateAttribute(DateAttribute dateAttributes) {
         this.dateAttributes = dateAttributes;
-    }
-
-    public void addDateAttribute(DateAttribute attribute){
-        this.dateAttributes.add(attribute);
     }
 
     public String getDescription() {
@@ -127,5 +122,18 @@ public class Event {
                 ", intAttributes=" + intAttributes +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return ID.equals(event.ID) && name.equals(event.name) && Objects.equals(stringAttributes, event.stringAttributes) && Objects.equals(intAttributes, event.intAttributes) && dateAttributes.equals(event.dateAttributes) && Objects.equals(description, event.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, name, stringAttributes, intAttributes, dateAttributes, description);
     }
 }
