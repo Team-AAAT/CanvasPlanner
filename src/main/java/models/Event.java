@@ -20,6 +20,7 @@ public class Event {
     private List<Attribute<Integer>> intAttributes;
     private DateAttribute dateAttributes;
     private String description;
+    private Boolean completionStatus;
 
     @JsonCreator
     public Event(@JsonProperty("ID") String ID,
@@ -27,7 +28,8 @@ public class Event {
                  @JsonProperty("description") String description,
                  @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
                  @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes,
-                 @JsonProperty("dateAttributes") DateAttribute dateAttributes) {
+                 @JsonProperty("dateAttributes") DateAttribute dateAttributes,
+                 @JsonProperty("completionStatus") Boolean completionStatus) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -43,6 +45,8 @@ public class Event {
         this.intAttributes = new ArrayList<>();
 
         this.dateAttributes = dateAttribute;
+
+        this.completionStatus = false;
     }
 
     public String getID() {
@@ -99,6 +103,14 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Boolean getCompletionStatus() {
+        return completionStatus;
+    }
+
+    public void setCompletionStatus(Boolean completionStatus) {
+        this.completionStatus = completionStatus;
     }
 
     @Override

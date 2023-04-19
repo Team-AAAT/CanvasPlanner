@@ -5,7 +5,6 @@
     display: grid;
     grid-template-rows: repeat(5, auto);
     grid-template-columns: repeat(auto-fit, minmax(calc(75vw / 7), 1fr));
-    display: none;
 }
 
 .monthViewContainer .box{
