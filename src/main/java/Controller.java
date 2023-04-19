@@ -2,7 +2,6 @@ import com.google.gson.*;
 import io.javalin.Javalin;
 import models.*;
 
-import java.io.StringReader;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -104,10 +103,10 @@ public class Controller {
 
                     JsonPrimitive valuePrimitive = valueElement.getAsJsonPrimitive();
                     if (valuePrimitive.isNumber()) {
-                        Integer value = (Integer) valuePrimitive.getAsInt();
+                        Integer value = valuePrimitive.getAsInt();
                         Attribute<Integer> jsonAttribute = new Attribute<>(
                                 UUID.randomUUID().toString(),
-                                jsonObject.get("name").getAsString(),
+                                name,
                                 value,
                                 Integer.class);
                         database.addIntegerAttribute(jsonAttribute.cloneBlankAttribute());
@@ -116,7 +115,7 @@ public class Controller {
                         String value = valuePrimitive.getAsString();
                         Attribute<String> jsonAttribute = new Attribute<>(
                                 UUID.randomUUID().toString(),
-                                jsonObject.get("name").getAsString(),
+                                name,
                                 value,
                                 String.class);
                         database.addStringAttribute(jsonAttribute.cloneBlankAttribute());
