@@ -17,7 +17,7 @@ public class Event {
     private String name;
     private List<Attribute<String>> stringAttributes;
     private List<Attribute<Integer>> intAttributes;
-    private List<DateAttribute> dateAttributes;
+    private DateAttribute dateAttributes;
     private String description;
 
     @JsonCreator
@@ -26,7 +26,7 @@ public class Event {
                  @JsonProperty("description") String description,
                  @JsonProperty("stringAttributes") List<Attribute<String>> stringAttributes,
                  @JsonProperty("intAttributes") List<Attribute<Integer>> intAttributes,
-                 @JsonProperty("dateAttributes") List<DateAttribute> dateAttributes) {
+                 @JsonProperty("dateAttributes") DateAttribute dateAttributes) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -41,8 +41,7 @@ public class Event {
         this.stringAttributes = new ArrayList<>();
         this.intAttributes = new ArrayList<>();
 
-        this.dateAttributes = new ArrayList<>();
-        this.dateAttributes.add(dateAttribute);
+        this.dateAttributes = dateAttribute;
     }
 
     public String getID() {
@@ -85,16 +84,12 @@ public class Event {
         this.intAttributes.add(attribute);
     }
 
-    public List<DateAttribute> getDateAttributes() {
+    public DateAttribute getDateAttributes() {
         return dateAttributes;
     }
 
-    public void setDateAttributes(List<DateAttribute> dateAttributes) {
+    public void setDateAttribute(DateAttribute dateAttributes) {
         this.dateAttributes = dateAttributes;
-    }
-
-    public void addDateAttribute(DateAttribute attribute){
-        this.dateAttributes.add(attribute);
     }
 
     public String getDescription() {

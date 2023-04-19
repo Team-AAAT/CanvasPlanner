@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Controller {
@@ -24,7 +23,7 @@ public class Controller {
         Javalin app = Javalin.create().start(50000);
 
         app.post("/makeCalendarEvent", ctx -> {
-            try{
+            try {
                 LocalDateTime startDateTime = LocalDateTime.parse(Objects.requireNonNull(ctx.queryParam("startDateTime")), formatter);
                 LocalDateTime endDateTime = LocalDateTime.parse(Objects.requireNonNull(ctx.queryParam("endDateTime")), formatter);
 
@@ -37,14 +36,13 @@ public class Controller {
                         .limit(ChronoUnit.DAYS.between(startDateTime, endDateTime.plusDays(1)))
                         .toList();
 
-                for(LocalDateTime date : dates){
+                for (LocalDateTime date : dates) {
                     EventList eventList = database.getEventListByDate(date.toLocalDate());
                     if (eventList == null) {
                         eventList = new EventList(UUID.randomUUID().toString(), date.toLocalDate());
                         eventList.addEvent(event.getID());
                         database.addEventList(eventList);
-                    }
-                    else {
+                    } else {
                         eventList.addEvent(event.getID());
                         database.updateEventList(eventList);
                     }
@@ -58,7 +56,7 @@ public class Controller {
         });
 
         app.get("/getCalendarEvent", ctx -> {
-            try{
+            try {
                 Event event = database.getEventByName(ctx.queryParam("name"));
                 ctx.json(event);
             } catch (Exception e) {
@@ -68,9 +66,31 @@ public class Controller {
         });
 
         //updateEvent
+        app.post("/updateEvent", ctx -> {
+            try {
+                Event event = database.getEventByID(ctx.queryParam("id"));
+                event.setName(ctx.queryParam("name"));
+                event.setDescription(ctx.queryParam("description"));
+
+                DateAttribute dateAttribute = new DateAttribute(
+                        ctx.queryParam("name"),
+                        ctx.queryParam("description"),
+                        String.class,
+                        LocalDateTime.parse(Objects.requireNonNull(ctx.queryParam("startDateTime")), formatter),
+                        LocalDateTime.parse(Objects.requireNonNull(ctx.queryParam("endDateTime")), formatter));
+                event.setDateAttribute(dateAttribute);
+
+                database.updateEvent(event);
+
+                ctx.result("{\"status\": \"success\"}");
+            } catch (Exception e) {
+                e.printStackTrace();
+                ctx.result("{\"status\": \"failure\"}");
+            }
+        });
 
         app.get("/getDayEvents", ctx -> {
-            try{
+            try {
                 EventList eventList = database.getEventListByDate(LocalDate.parse(Objects.requireNonNull(ctx.queryParam("date")), formatter));
                 List<Event> events = new ArrayList<>();
 
@@ -91,9 +111,6 @@ public class Controller {
         //monthPriority
 
         //nameLookup
-
-
-
 
 
 //        app.post("/makeCalendarEvent", ctx ->{ // this is the endpoint for the frontend to send the data to

@@ -47,13 +47,16 @@ public class Database {
         jsonDBTemplate.insert(eventList);
     }
 
-//    public void saveEventList(@NotNull EventList eventList) {
-//        jsonDBTemplate.save(eventList, EventList.class);
-//    }
-
 
     public void addEvent(@NotNull Event event) {
         jsonDBTemplate.insert(event);
+    }
+
+    public void updateEvent(Event event) {
+//        Update update = Update.update("name", event.getName());
+//        String jxQuery = String.format("/.[ID='%s']", event.getID());
+//        jsonDBTemplate.findAndModify(jxQuery, update, Event.class);
+        jsonDBTemplate.upsert(event);
     }
 
     public Event getEventByName(String name) {
@@ -76,6 +79,7 @@ public class Database {
         Update update = Update.update("eventIdList", eventList.getEventIdList());
         String jxQuery = String.format("/.[date='%s']", eventList.getDate().toString());
         jsonDBTemplate.findAndModify(jxQuery, update, EventList.class);
-//        jsonDBTemplate.upsert(eventList);
     }
+
+
 }
