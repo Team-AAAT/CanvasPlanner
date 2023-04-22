@@ -21,30 +21,30 @@
                 <img class="searchButton" src="../sources/search.png" alt="Button">
             </div>
             <div class = "dateTextDiv">
-                <label class="dateText">March 24th, 2023</label>
+                <label id="current_day" class="dateText">March 24th, 2023</label>
             </div>
         </div>
 
         <div class = "rightContainer">
             <div class = "calendarViewButtonDiv">
-                <button class="calendarViewButton">Week</button>
-                <button class="calendarViewButton">Month</button>
-                <button class="calendarViewButton">Year</button>
+                <button class="calendarViewButton" onclick="weekButtonClick();">Week</button>
+                <button class="calendarViewButton" onclick="monthButtonClick();">Month</button>
+                <button class="calendarViewButton" onclick="yearButtonClick();">Year</button>
             </div>
             <img class="shareButton" src="../sources/share-button.png" alt="Button">
         </div>
     </div>
 
     <div class="mainContainer">
-        <div class="selectedItemContainer">
+        <div id="selectedItemContainer" class="selectedItemContainer">
             <div class="selectedItemTitleContainer">
-                <label class="selectedItemTitle">Title</label>
+                <label id="selectedItemTitle" class="selectedItemTitle">Title</label>
             </div>
             <div class="selectedItemFixedAttributeContainer">
                 <Label class = "selectedItemText" style="grid-row: 1; grid-column: 1;">Start Date</Label>
-                <Label class = "selectedItemText" style="grid-row: 1; grid-column: 2;">...</Label>
+                <Label id="selectedItemStartDate" class = "selectedItemText" style="grid-row: 1; grid-column: 2;">...</Label>
                 <Label class = "selectedItemText" style="grid-row: 2; grid-column: 1;">End Date</Label>
-                <Label class = "selectedItemText" style="grid-row: 2; grid-column: 2;">...</Label>
+                <Label id="selectedItemEndDate" class = "selectedItemText" style="grid-row: 2; grid-column: 2;">...</Label>
             </div>
             <div class="selectedItemAttributeContainer">
                 <div class="selectedItemAttributeGrid">
@@ -55,23 +55,17 @@
                 </div>
                 <button class="selectedItemAttributeButton">+ New Attribute</button>
             </div>
-
             <div class="selectedItemDescriptionContainer">
-                <label class="selectedItemTitle">Title</label>
-                <textarea class="selectedItemDescription"> </textarea>
+                <label class="selectedItemTitle">Description</label>
+                <textarea id="selectedItemDescription" class="selectedItemDescription"> </textarea>
             </div>
 
         </div>
-        <div class="monthViewContainer">
 
-                <div class="box">
-                    <label class="monthNumber">1</label>
-                    <div class = "event">1
-                        <input type="checkbox" id="eventCompletion" name="event1">
-                        <label for="checkbox"></label>
-                    </div>
-                </div>
-                <div class="box"><label class="monthNumber">2</label><div class = "event">1</div></div>
+        <div id="monthViewContainer" class="monthViewContainer">
+
+                <div class="box"><label class="monthNumber">1</label></div>
+                <div class="box"><label class="monthNumber">2</label></div>
                 <div class="box"><label class="monthNumber">3</label></div>
                 <div class="box"><label class="monthNumber">4</label></div>
                 <div class="box"><label class="monthNumber">5</label></div>
@@ -109,9 +103,17 @@
                 <div class="box"><label class="monthNumber">33</label></div>
                 <div class="box"><label class="monthNumber">34</label></div>
                 <div class="box"><label class="monthNumber">35</label></div>
+
+                <div class="box"><label class="monthNumber">29</label></div>
+                <div class="box"><label class="monthNumber">30</label></div>
+                <div class="box"><label class="monthNumber">31</label></div>
+                <div class="box"><label class="monthNumber">32</label></div>
+                <div class="box"><label class="monthNumber">33</label></div>
+                <div class="box"><label class="monthNumber">34</label></div>
+                <div class="box"><label class="monthNumber">35</label></div>
         </div>
 
-        <div class="yearViewContainer">
+        <div id="yearViewContainer" class="yearViewContainer">
 
             <div class="box"><label class="monthName">January</label></div>
             <div class="box"><label class="monthName">February</label></div>
@@ -127,7 +129,7 @@
             <div class="box"><label class="monthName">December</label></div>
         </div>
 
-        <div class="weekViewContainer">
+        <div id="weekViewContainer" class="weekViewContainer">
             <div class="box"><label class="monthName">Sunday</label></div>
             <div class="box"><label class="monthName">Monday</label></div>
             <div class="box"><label class="monthName">Tuesday</label></div>

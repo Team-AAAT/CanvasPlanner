@@ -24,6 +24,10 @@ public class Controller {
         //removes CORS errors
         app.before(ctx -> ctx.header("Access-Control-Allow-Origin", "*"));
 
+        app.get("/isReady", ctx -> {
+            ctx.result("Server is ready");
+        });
+
         app.post("/makeCalendarEvent", ctx -> {
             try {
                 // Parse startDateTime and endDateTime from the request

@@ -5,7 +5,7 @@
     display: grid;
     grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(auto-fit, minmax(calc(75vw / 3), 1fr));
-    display: none;
+
 }
 
 .yearViewContainer .box{
