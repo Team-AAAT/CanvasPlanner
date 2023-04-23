@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/yearView.css">
     <link rel="stylesheet" href="../styles/itemView.css">
     <link rel="stylesheet" href="../styles/event.css">
+    <link rel="stylesheet" href="../styles/addEventView.css">
     <script src="../scripts/index.js" defer></script>
 
 </head>
@@ -27,9 +28,10 @@
 
         <div class = "rightContainer">
             <div class = "calendarViewButtonDiv">
-                <button class="calendarViewButton">Week</button>
-                <button class="calendarViewButton">Month</button>
-                <button class="calendarViewButton">Year</button>
+                <button class="calendarViewButton" onclick="changeToWeekView();">Week</button>
+                <button class="calendarViewButton" onclick="changeToMonthView();">Month</button>
+                <button class="calendarViewButton" onclick="changeToYearView();">Year</button>
+                <button class="newEventButton" onclick="addEventView();">Add Event</button>
             </div>
             <img class="shareButton" src="../sources/share-button.png" alt="Button">
         </div>
@@ -62,6 +64,36 @@
             </div>
 
         </div>
+
+        <div class="addItemContainer">
+            <div class="addItemTitleContainer">
+                <textarea class="newItemTitle">Enter Event Name</textarea>
+            </div>
+            <div class="selectedItemFixedAttributeContainer">
+                <Label class = "selectedItemText" style="grid-row: 1; grid-column: 1;">Start Date</Label>
+                <textarea class="selectedItemTextBox" style="grid-row: 1; grid-column: 2;"></textarea>
+                <Label class = "selectedItemText" style="grid-row: 2; grid-column: 1;">End Date</Label>
+                <textarea class="selectedItemTextBox" style="grid-row: 2; grid-column: 2;"></textarea>
+            </div>
+            <div class="selectedItemAttributeContainer">
+                <div class="selectedItemAttributeGrid">
+                    <input class="selectedItemAttributeField">
+                    <input class="selectedItemAttributeText">
+                    <input class="selectedItemAttributeField">
+                    <input class="selectedItemAttributeText">
+                </div>
+                <button class="selectedItemAttributeButton">+ New Attribute</button>
+            </div>
+
+            <div class="selectedItemDescriptionContainer">
+                <textarea class="addItemDescriptionTitle">Add Title</textarea>
+                <textarea class="selectedItemDescription"> </textarea>
+            </div>
+
+            <button class="submitEventButton">Submit</button>
+
+        </div>
+
         <div class="monthViewContainer">
 
                 <div class="box">
