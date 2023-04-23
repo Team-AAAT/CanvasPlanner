@@ -1,5 +1,7 @@
 const { ipcRenderer  } = require ("electron");
 let listOfEventLists = [];
+
+
 function weekButtonClick(){
     let week = document.querySelector("#weekViewContainer");
     let month = document.querySelector("#monthViewContainer");
@@ -111,7 +113,7 @@ function loadMonthView(){
 }
 
 function showEvent(id){
-    console.log(`Event id: ${id}`);
+    // console.log(`Event id: ${id}`);
 
     let finalEvent = listOfEventLists.find(eventList => eventList.events.find(event => event.id === id)).events.find(event => event.id === id);
 
@@ -131,6 +133,64 @@ function showEvent(id){
 
     document.querySelector("#selectedItemStartDate").innerText = startDate;
     document.querySelector("#selectedItemEndDate").innerText = endDate;
+
+    let attributeGrid = document.querySelector("#selectedItemAttributeGrid")
+    attributeGrid.innerHTML = "";
+
+    for(let attribute of finalEvent.stringAttributes){
+        attributeGrid.innerHTML += `<input class="selectedItemAttributeField" value="${attribute.name}" onblur="onEventUpdated('${id}', this.value, '${attribute.id}', 'name', 'String');">
+                                    <input class="selectedItemAttributeText" value="${attribute.value}" onblur="onEventUpdated('${id}', this.value, '${attribute.id}', 'value', 'String');">`
+    }
+
+    for(let attribute of finalEvent.intAttributes){
+        attributeGrid.innerHTML += `<input class="selectedItemAttributeField" value="${attribute.name}" onblur="onEventUpdated('${id}', this.value, '${attribute.id}', 'name', 'int')">
+                                    <input class="selectedItemAttributeText" value="${attribute.value}" onblur="onEventUpdated('${id}', this.value, '${attribute.id}', 'value', 'int')">`
+    }
+
+
+
+}
+
+function onEventUpdated(id, value, attributeID, nameOrValue, type){
+    let finalEvent = listOfEventLists.find(eventList => eventList.events.find(event => event.id === id)).events.find(event => event.id === id);
+
+    if(type === "String"){
+        if(nameOrValue === "name"){
+            finalEvent.stringAttributes.find(attribute => attribute.id === attributeID).name = value;
+        } else {
+            finalEvent.stringAttributes.find(attribute => attribute.id === attributeID).value = value;
+        }
+    }
+    else{
+        if(nameOrValue === "name"){
+            finalEvent.intAttributes.find(attribute => attribute.id === attributeID).name = value;
+        } else {
+            finalEvent.intAttributes.find(attribute => attribute.id === attributeID).value = value;
+        }
+    }
+
+    console.log(finalEvent.stringAttributes);
+
+    //merged list of string and int attributes
+    let mergedAttributes = finalEvent.stringAttributes.concat(finalEvent.intAttributes);
+
+    fetch('http://127.0.0.1:50000/updateEvent?' + new URLSearchParams({
+        id: id,
+        name: finalEvent.name,
+        description: finalEvent.description,
+        dateAttributeName: finalEvent.dateAttributes.name,
+        dateAttributeDescription: finalEvent.dateAttributes.description,
+        startDateTime: new Date(Date.UTC(...finalEvent.dateAttributes.startDateTime)).toISOString().replace('T', ' ').replace(/\.\d{3}Z/, ''),
+        endDateTime: new Date(Date.UTC(...finalEvent.dateAttributes.endDateTime)).toISOString().replace('T', ' ').replace(/\.\d{3}Z/, '')
+    }), {
+        method: 'POST',
+        body:mergedAttributes
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error(error));
 
 
 

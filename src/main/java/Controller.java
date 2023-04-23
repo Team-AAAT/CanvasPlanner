@@ -133,13 +133,15 @@ public class Controller {
                     JsonObject jsonObject = element.getAsJsonObject();
 
                     String name = jsonObject.get("name").getAsString();
+                    String id = jsonObject.get("id").getAsString();
                     JsonElement valueElement = jsonObject.get("value");
+
 
                     JsonPrimitive valuePrimitive = valueElement.getAsJsonPrimitive();
                     if (valuePrimitive.isNumber()) {
                         Integer value = valuePrimitive.getAsInt();
                         Attribute<Integer> jsonAttribute = new Attribute<>(
-                                UUID.randomUUID().toString(),
+                                id,
                                 name,
                                 value,
                                 Integer.class);
@@ -148,7 +150,7 @@ public class Controller {
                     }else{
                         String value = valuePrimitive.getAsString();
                         Attribute<String> jsonAttribute = new Attribute<>(
-                                UUID.randomUUID().toString(),
+                                id,
                                 name,
                                 value,
                                 String.class);
