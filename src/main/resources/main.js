@@ -1,5 +1,6 @@
 const { app, BrowserWindow, ipcMain, ipcRenderer, dialog} = require("electron")
 const electron = require("electron")
+const fetch = require('electron-fetch').default
 const { spawn } = require('child_process');
 const path = require('path');
 const electronReload = require('electron-reload');
@@ -46,6 +47,23 @@ function stopJavaBackend() {
     }
 }
 
+function checkServerReady() {
+    fetch('http://localhost:50000/isReady')
+        .then(response => {
+            if (response.ok) {
+                console.log('Server is ready!');
+                // do something else here, like load the page
+                createWindow();
+            } else {
+                console.log('Server not ready, waiting...');
+                setTimeout(checkServerReady, 1000); // call this function again in 5 seconds
+            }
+        })
+        .catch(error => {
+            // console.log('Error checking server readiness:', error);
+            setTimeout(checkServerReady, 1000); // call this function again in 5 seconds
+        });
+}
 
 app.whenReady().then(() => {
     startJavaBackend();
@@ -55,7 +73,9 @@ app.whenReady().then(() => {
             contextIsolation: false
         }
     })
-    createWindow() // creates the new window
+
+    checkServerReady();
+    // createWindow()
 
     mainWindow.on('closed', () => {
         stopJavaBackend();

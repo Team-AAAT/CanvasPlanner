@@ -70,6 +70,10 @@ public class Attribute<T> {
         return new Attribute<>(this.name, null, this.type);
     }
 
+    public Attribute<T> cloneBlankAttributeWithID() {
+        return new Attribute<>(this.ID, this.name, null, this.type);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
