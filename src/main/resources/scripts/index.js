@@ -124,6 +124,9 @@ function loadMonthView(){
 function showEvent(id){
     // console.log(`Event id: ${id}`);
 
+    document.querySelector("#addItemContainer").style.display = 'none';
+    document.querySelector("#selectedItemContainer").style.display = 'flex';
+
     let finalEvent = listOfEventLists.find(eventList => eventList.events.find(event => event.id === id)).events.find(event => event.id === id);
 
     document.querySelector("#selectedItemTitle").innerText = finalEvent.name;
@@ -455,11 +458,79 @@ function loadYearView(){
     }
 }
 
+//------------------------------------------------------
+
+function addEventView(){
+    document.querySelector("#selectedItemContainer").style.display = 'none';
+    document.querySelector("#addItemContainer").style.display = 'flex';
+}
+
+function submitNewEvent(){
+    let name = document.querySelector("#addItemTitle").value;
+    let description = document.querySelector("#addItemDescription").value;
+    let startDate = document.querySelector("#addItemStartDate").value.replace('T', ' ');
+    let endDate = document.querySelector("#addItemEndDate").value.replace('T', ' ');
+    let completionStatus = false;
+
+
+    let attributes = [];
+    // go through each pair in the addItemAttributeGrid and add them to the attributes array. Every 2 input tags go together
+    let attributeGrid = document.querySelector("#addItemAttributeGrid");
+    for (let i = 0; i < attributeGrid.children.length; i += 2){
+        attributes.push({
+            name: attributeGrid.children[i].value,
+            value: attributeGrid.children[i + 1].value,
+            type: "Java.lang.String",
+            id: uuidv4()
+        });
+    }
+
+    fetch('http://127.0.0.1:50000/makeCalendarEvent?' + new URLSearchParams({
+        name: name,
+        description: description,
+        dateAttributeName: "date",
+        dateAttributeDescription: "date description",
+        startDateTime: startDate,
+        endDateTime: endDate,
+        completionStatus: completionStatus
+        }), {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+            },
+        body: JSON.stringify(attributes)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            loadMonthView();
+        })
+        .catch(error => console.error(error));
+
+    document.querySelector("#addItemTitle").value = "";
+    document.querySelector("#addItemDescription").value = "";
+    document.querySelector("#addItemStartDate").value = "";
+    document.querySelector("#addItemEndDate").value = "";
+    document.querySelector("#addItemAttributeGrid").innerHTML = "";
+    document.querySelector("#addItemContainer").style.display = 'none';
+    document.querySelector("#selectedItemContainer").style.display = 'flex';
+
+
+
+}
+
+function addItemAddAttributeField() {
+    let attributeGrid = document.querySelector("#addItemAttributeGrid");
+    attributeGrid.innerHTML += `<input placeholder="Attribute Name" class="selectedItemAttributeField">
+                                <input placeholder="Attribute Value" class="selectedItemAttributeText">`;
+}
+
 updateDate();
 setInterval(updateDate, 1000);
 document.querySelector("#weekViewContainer").style.display = "none";
 document.querySelector("#monthViewContainer").style.display = "grid";
 document.querySelector("#yearViewContainer").style.display = "none";
+document.querySelector("#addItemContainer").style.display = 'none';
 
 loadMonthView();
 

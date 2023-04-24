@@ -49,6 +49,50 @@ public class Controller {
                         );
                 event.setID(UUID.randomUUID().toString());
 
+                List<Attribute<String>> stringAttributes = new ArrayList<>();
+                List<Attribute<Integer>> integerAttributes = new ArrayList<>();
+
+                if (ctx.body() != null){
+                    String jsonBody = ctx.body();
+                    JsonArray jsonArray = JsonParser.parseString(jsonBody).getAsJsonArray();
+
+                    // Iterate through the JSON array and add attributes to the appropriate list based on whether they're integers or strings
+                    for (JsonElement element : jsonArray) {
+                        JsonObject jsonObject = element.getAsJsonObject();
+
+                        String name = jsonObject.get("name").getAsString();
+                        String id = jsonObject.get("id").getAsString();
+                        JsonElement valueElement = jsonObject.get("value");
+
+
+                        JsonPrimitive valuePrimitive = valueElement.getAsJsonPrimitive();
+                        if (valuePrimitive.isNumber()) {
+                            Integer value = valuePrimitive.getAsInt();
+                            Attribute<Integer> jsonAttribute = new Attribute<>(
+                                    id,
+                                    name,
+                                    value,
+                                    Integer.class);
+                            database.updateIntegerAttribute(jsonAttribute.cloneBlankAttributeWithID());
+                            integerAttributes.add(jsonAttribute);
+                        }else{
+                            String value = valuePrimitive.getAsString();
+                            Attribute<String> jsonAttribute = new Attribute<>(
+                                    id,
+                                    name,
+                                    value,
+                                    String.class);
+                            database.updateStringAttribute(jsonAttribute.cloneBlankAttributeWithID());
+                            stringAttributes.add(jsonAttribute);
+                        }
+
+                    }
+                }
+
+                // Add the attributes to the event
+                event.setStringAttributes(stringAttributes);
+                event.setIntAttributes(integerAttributes);
+
                 // Add the event to the database
                 database.addEvent(event);
 

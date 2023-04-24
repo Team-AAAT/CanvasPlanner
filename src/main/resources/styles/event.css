@@ -2,6 +2,11 @@
     background-color: #f00;
     width: 100%;
     grid-column: 1 / span 2;
+    border: #2b2b2b 1px solid;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+
 }
 
 .eventCompleted{

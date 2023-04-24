@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/yearView.css">
     <link rel="stylesheet" href="../styles/itemView.css">
     <link rel="stylesheet" href="../styles/event.css">
+    <link rel="stylesheet" href="../styles/addEventView.css">
     <script src="../scripts/index.js" defer></script>
 
 </head>
@@ -30,6 +31,7 @@
                 <button class="calendarViewButton" onclick="weekButtonClick();">Week</button>
                 <button class="calendarViewButton" onclick="monthButtonClick();">Month</button>
                 <button class="calendarViewButton" onclick="yearButtonClick();">Year</button>
+                <button class="newEventButton" onclick="addEventView();">Add Event</button>
             </div>
             <img class="shareButton" src="../sources/share-button.png" alt="Button">
         </div>
@@ -59,6 +61,33 @@
                 <label class="selectedItemTitle">Description</label>
                 <textarea id="selectedItemDescription" class="selectedItemDescription"> </textarea>
             </div>
+
+        </div>
+
+        <div id="addItemContainer" class="addItemContainer">
+            <div class="addItemTitleContainer">
+                <textarea id="addItemTitle" class="newItemTitle" placeholder="Enter Event Name"></textarea>
+            </div>
+            <div class="selectedItemFixedAttributeContainer">
+                <Label class = "selectedItemText" style="grid-row: 1; grid-column: 1;">Start Date</Label>
+                <input id="addItemStartDate" type="datetime-local" class="selectedItemTextBox" style="grid-row: 1; grid-column: 2;"></input>
+                <Label class = "selectedItemText" style="grid-row: 2; grid-column: 1;">End Date</Label>
+                <input id="addItemEndDate" type="datetime-local" class="selectedItemTextBox" style="grid-row: 2; grid-column: 2;"></input>
+            </div>
+            <div class="selectedItemAttributeContainer">
+                <div id="addItemAttributeGrid" class="selectedItemAttributeGrid">
+                    <input class="selectedItemAttributeField">
+                    <input class="selectedItemAttributeText">
+                </div>
+                <button class="selectedItemAttributeButton" onclick="addItemAddAttributeField()">+ New Attribute</button>
+            </div>
+
+            <div class="selectedItemDescriptionContainer">
+                <label class="addItemDescription">Description</label>
+                <textarea id="addItemDescription" class="selectedItemDescription" placeholder="Enter Event Description"></textarea>
+            </div>
+
+            <button class="submitEventButton" onclick="submitNewEvent()">Submit</button>
 
         </div>
 
