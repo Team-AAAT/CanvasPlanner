@@ -10,3 +10,6 @@
 /src/main/resources/database/eventLists.json
 /src/main/resources/database/events.json
 /database/
+/src/main/resources/dist/
+/src/main/resources/studentplanner-linux-x64.zip
+/src/main/resources/studentplanner-win32-x64.zip

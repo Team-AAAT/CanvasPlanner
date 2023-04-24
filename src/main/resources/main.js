@@ -7,7 +7,7 @@ const electronReload = require('electron-reload');
 
 let mainWindow
 let javaProcess
-electronReload(__dirname);
+// electronReload(__dirname);
 
 function createWindow() {
     const display = electron.screen.getPrimaryDisplay()
