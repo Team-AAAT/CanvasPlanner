@@ -36,9 +36,10 @@ public class Event {
         this.stringAttributes = stringAttributes;
         this.intAttributes = intAttributes;
         this.dateAttributes = dateAttributes;
+        this.completionStatus = completionStatus;
     }
 
-    public Event(String name, String description, DateAttribute dateAttribute) {
+    public Event(String name, String description, DateAttribute dateAttribute, Boolean completionStatus) {
         this.name = name;
         this.description = description;
         this.stringAttributes = new ArrayList<>();
@@ -46,7 +47,7 @@ public class Event {
 
         this.dateAttributes = dateAttribute;
 
-        this.completionStatus = false;
+        this.completionStatus = completionStatus;
     }
 
     public String getID() {
@@ -121,6 +122,7 @@ public class Event {
                 ", stringAttributes=" + stringAttributes +
                 ", intAttributes=" + intAttributes +
                 ", description='" + description + '\'' +
+                ", completionStatus=" + completionStatus +
                 '}';
     }
 

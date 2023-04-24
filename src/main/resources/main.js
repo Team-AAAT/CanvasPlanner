@@ -74,18 +74,8 @@ app.whenReady().then(() => {
         }
     })
 
-    //wait for backend to start
-    // fetch('http://localhost:50000/ready')
-    //     .then(() => {
-    //         createWindow();
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error waiting for backend:', error);
-    //     });
-
     checkServerReady();
-
-    // creates the new window
+    // createWindow()
 
     mainWindow.on('closed', () => {
         stopJavaBackend();

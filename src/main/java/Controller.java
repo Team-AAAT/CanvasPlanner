@@ -9,6 +9,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Controller {
@@ -43,9 +44,10 @@ public class Controller {
                                 ctx.queryParam("description"),
                                 String.class,
                                 startDateTime,
-                                endDateTime));
+                                endDateTime),
+                        false
+                        );
                 event.setID(UUID.randomUUID().toString());
-                event.setCompletionStatus(false);
 
                 // Add the event to the database
                 database.addEvent(event);
@@ -145,7 +147,7 @@ public class Controller {
                                 name,
                                 value,
                                 Integer.class);
-                        database.addIntegerAttribute(jsonAttribute.cloneBlankAttribute());
+                        database.updateIntegerAttribute(jsonAttribute.cloneBlankAttributeWithID());
                         integerAttributes.add(jsonAttribute);
                     }else{
                         String value = valuePrimitive.getAsString();
@@ -154,18 +156,17 @@ public class Controller {
                                 name,
                                 value,
                                 String.class);
-                        database.addStringAttribute(jsonAttribute.cloneBlankAttribute());
+                        database.updateStringAttribute(jsonAttribute.cloneBlankAttributeWithID());
                         stringAttributes.add(jsonAttribute);
                     }
 
                 }
 
                 // Create the new event object with the updated attributes
-                Event newEvent = new Event(ctx.queryParam("name"), ctx.queryParam("description"), dateAttribute);
+                Event newEvent = new Event(ctx.queryParam("name"), ctx.queryParam("description"), dateAttribute, Boolean.valueOf(ctx.queryParam("completionStatus")));
                 newEvent.setID(oldEvent.getID());
                 newEvent.setStringAttributes(stringAttributes);
                 newEvent.setIntAttributes(integerAttributes);
-                newEvent.setCompletionStatus(Boolean.valueOf(ctx.queryParam("completionStatus")));
 
                 // Remove the old event from all event lists in the database
                 List<LocalDateTime> oldDates = Stream.iterate(oldEvent.getDateAttributes().getStartDateTime(), date -> date.plusDays(1))
@@ -253,7 +254,9 @@ public class Controller {
                 YearMonth yearMonth = YearMonth.parse(Objects.requireNonNull(ctx.queryParam("month")), monthFormatter);
 
                 // Get the dates for the month
-                List<LocalDate> dates = yearMonth.atEndOfMonth().datesUntil(yearMonth.atDay(1)).sorted().toList();
+                List<LocalDate> dates = yearMonth.atDay(1) // First day of month
+                        .datesUntil(yearMonth.atEndOfMonth().plusDays(1)) // Generate stream of dates until last day of month
+                        .toList();
 
                 List<Event> events = new ArrayList<>();
 

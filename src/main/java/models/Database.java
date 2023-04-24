@@ -27,20 +27,21 @@ public class Database {
     }
 
     public void addStringAttribute(@NotNull Attribute<String> attribute) {
-        if (jsonDBTemplate.findOne(
-                String.format("/.[name='%s']", attribute.getName()),
-                Attribute.class) == null) {
-            jsonDBTemplate.insert(attribute);
-        }
+        jsonDBTemplate.insert(attribute);
     }
 
     public void addIntegerAttribute(Attribute<Integer> attribute) {
-        if (jsonDBTemplate.findOne(
-                String.format("/.[name='%s']", attribute.getName()),
-                Attribute.class) == null) {
-            jsonDBTemplate.insert(attribute);
-        }
+        jsonDBTemplate.insert(attribute);
     }
+
+    public void updateStringAttribute(@NotNull Attribute<String> attribute) {
+        jsonDBTemplate.upsert(attribute);
+    }
+
+    public void updateIntegerAttribute(Attribute<Integer> attribute) {
+        jsonDBTemplate.upsert(attribute);
+    }
+
 
     public void addEventList(@NotNull EventList eventList) {
         jsonDBTemplate.insert(eventList);
