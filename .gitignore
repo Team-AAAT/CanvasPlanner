@@ -13,3 +13,6 @@
 /src/main/resources/dist/
 /src/main/resources/studentplanner-linux-x64.zip
 /src/main/resources/studentplanner-win32-x64.zip
+/src/main/resources/CanvasPlanner.jar
+/src/main/resources/studentplanner-darwin-arm64.zip
+/src/main/resources/studentplanner-darwin-x64.zip

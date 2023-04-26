@@ -11,6 +11,7 @@ To run this app, you'll need to have the following software installed on your co
 - [Node.js](https://nodejs.org/en/) (version 12 or higher)
 - [npm](https://www.npmjs.com/) (version 6 or higher)
 - [Git](https://git-scm.com/)
+- [Maven](https://maven.apache.org/) (version 3.8.1 or higher)
 
 ### If using the pre-built binaries
 - [Java SE](https://www.oracle.com/cis/java/technologies/downloads/#java20) (version 20 or higher)
@@ -42,6 +43,14 @@ Then, run the following command:
 ```npm install```
 
 This will install all the necessary dependencies for the app.
+
+### Adding Java backend
+
+Download the jar file from [here](https://pennstateoffice365-my.sharepoint.com/:u:/g/personal/acw5549_psu_edu/EQcQCknTzQNGtNmRxdEMOZoBlOg5gZ3lZolARt3UtJ_7hQ?e=LHTNdP) and add it to the `resources` directory.
+
+if you wanted to run the backend directly from the java classes supplied, use Maven to build the project. 
+
+```mvn clean install```
 
 ## Running the app
 
